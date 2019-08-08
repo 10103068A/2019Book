@@ -23,7 +23,7 @@ namespace UDP_Drawing
 
         UdpClient U;
         Thread Th;
-
+        bool isclear = false;
         private void Listen()
         {
             var port = int.Parse(textBox1.Text);
@@ -34,35 +34,42 @@ namespace UDP_Drawing
                 byte[] B = U.Receive(ref EP);
                 string A = Encoding.Default.GetString(B);
                 string[] Z = A.Split('_');
-                string[] Q = Z[1].Split('/');
-                Point[] R = new Point[Q.Length];
-                for (int i = 0; i < Q.Length; i++)
+                if (Z[0] == "Clear")
                 {
-                    string[] K = Q[i].Split(',');
-                    R[i].X = int.Parse(K[0]);
-                    R[i].Y = int.Parse(K[1]);
+                    isclear = true;
                 }
-                for (int i = 0; i < Q.Length - 1; i++)
+                else
                 {
-                    LineShape L = new LineShape();
-                    L.StartPoint = R[i];
-                    L.EndPoint = R[i + 1];
-                    switch (Z[0])
+                    string[] Q = Z[1].Split('/');
+                    Point[] R = new Point[Q.Length];
+                    for (int i = 0; i < Q.Length; i++)
                     {
-                        case "1":
-                            L.BorderColor = Color.Red;
-                            break;
-                        case "2":
-                            L.BorderColor = Color.Lime;
-                            break;
-                        case "3":
-                            L.BorderColor = Color.Blue;
-                            break;
-                        case "4":
-                            L.BorderColor = Color.Black;
-                            break;
+                        string[] K = Q[i].Split(',');
+                        R[i].X = int.Parse(K[0]);
+                        R[i].Y = int.Parse(K[1]);
                     }
-                    L.Parent = otherPerson;
+                    for (int i = 0; i < Q.Length - 1; i++)
+                    {
+                        LineShape L = new LineShape();
+                        L.StartPoint = R[i];
+                        L.EndPoint = R[i + 1];
+                        switch (Z[0])
+                        {
+                            case "1":
+                                L.BorderColor = Color.Red;
+                                break;
+                            case "2":
+                                L.BorderColor = Color.Lime;
+                                break;
+                            case "3":
+                                L.BorderColor = Color.Blue;
+                                break;
+                            case "4":
+                                L.BorderColor = Color.Black;
+                                break;
+                        }
+                        L.Parent = otherPerson;
+                    }
                 }
             }
         }
@@ -115,6 +122,7 @@ namespace UDP_Drawing
             this.Controls.Add(myself);
             otherPerson = new ShapeContainer();
             this.Controls.Add(otherPerson);
+            radioButton4.Checked = true;
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
@@ -125,6 +133,11 @@ namespace UDP_Drawing
 
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
+            if (isclear)
+            {
+                Clear();
+                p = "";
+            }
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
                 LineShape L = new LineShape();
@@ -151,6 +164,23 @@ namespace UDP_Drawing
             byte[] B = Encoding.Default.GetBytes(p);
             S.Send(B, B.Length);
             S.Close();
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            Clear();
+            int Port = int.Parse(textBox3.Text);
+            UdpClient S = new UdpClient(textBox2.Text, Port);
+            byte[] B = Encoding.Default.GetBytes("Clear");
+            S.Send(B, B.Length);
+            S.Close();
+        }
+
+        private void Clear()
+        {
+            myself.Shapes.Clear();
+            otherPerson.Shapes.Clear();
+            isclear = false;
         }
     }
 }
