@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UDP_BullsNCows", "UDP_Bulls
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UDP_Drawing", "UDP_Drawing\UDP_Drawing.csproj", "{046DD504-9CD7-498E-B01A-25ACE95A8956}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UDP_XO", "UDP_XO\UDP_XO.csproj", "{6057E921-24BD-4181-A7FD-B7D0A572D7F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{046DD504-9CD7-498E-B01A-25ACE95A8956}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{046DD504-9CD7-498E-B01A-25ACE95A8956}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{046DD504-9CD7-498E-B01A-25ACE95A8956}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6057E921-24BD-4181-A7FD-B7D0A572D7F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6057E921-24BD-4181-A7FD-B7D0A572D7F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6057E921-24BD-4181-A7FD-B7D0A572D7F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6057E921-24BD-4181-A7FD-B7D0A572D7F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
