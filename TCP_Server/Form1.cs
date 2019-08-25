@@ -67,10 +67,19 @@ namespace TCP_Server
                         case "0":
                             HT.Add(Str, sck);
                             listBox1.Items.Add(Str);
+                            SendAll(OnlineList());
                             break;
                         case "9":
                             HT.Remove(Str);
                             listBox1.Items.Remove(Str);
+                            SendAll(OnlineList());
+                            break;
+                        case "1":
+                            SendAll(Msg);
+                            break;
+                        default:
+                            string[] C = Str.Split('|');
+                            SendTo(Cmd + C[0], C[1]);
                             break;
                     }
                 }
@@ -84,6 +93,52 @@ namespace TCP_Server
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.ExitThread();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            textBox1.Text = MyIP();
+        }
+
+        private string MyIP()
+        {
+            string hn = Dns.GetHostName();
+            IPAddress[] ip = Dns.GetHostEntry(hn).AddressList;
+            foreach (var it in ip)
+            {
+                if (it.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return it.ToString();
+                }
+            }
+            return "";
+        }
+
+        private string OnlineList()
+        {
+            string L = "L";
+            for(int i = 0; i < listBox1.Items.Count; i++)
+            {
+                L += listBox1.Items[i];
+                if (i < listBox1.Items.Count - 1) { L += ","; }
+            }
+            return L;
+        }
+
+        private void SendTo(string Str, string User)
+        {
+            byte[] B = Encoding.Default.GetBytes(Str);
+            Socket Sck = (Socket)HT[User];
+            Sck.Send(B, 0, B.Length, SocketFlags.None);
+        }
+
+        private void SendAll(string Str)
+        {
+            byte[] B = Encoding.Default.GetBytes(Str);
+            foreach(Socket s in HT.Values)
+            {
+                s.Send(B, 0, B.Length, SocketFlags.None);
+            }
         }
     }
 }
