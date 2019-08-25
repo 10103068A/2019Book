@@ -117,11 +117,7 @@ namespace TCP_Server
         private string OnlineList()
         {
             string L = "L";
-            for(int i = 0; i < listBox1.Items.Count; i++)
-            {
-                L += listBox1.Items[i];
-                if (i < listBox1.Items.Count - 1) { L += ","; }
-            }
+            L += string.Join(",", listBox1.Items.Cast<String>());
             return L;
         }
 

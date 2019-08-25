@@ -138,6 +138,7 @@
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(568, 27);
             this.textBox5.TabIndex = 9;
+            this.textBox5.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox5_KeyDown);
             // 
             // label5
             // 

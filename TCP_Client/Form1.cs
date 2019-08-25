@@ -23,30 +23,55 @@ namespace TCP_Client
         Socket T;
         Thread Th;
         string User;
+        bool isListen;
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            if (textBox3.Text == "")
+            {
+                textBox4.Text = "請輸入您的名字！";
+                return;
+            }
             CheckForIllegalCrossThreadCalls = false;
             string IP = textBox1.Text;
             int Port = int.Parse(textBox2.Text);
             User = textBox3.Text;
-            try
+            if (button1.Text == "登入伺服器")
             {
-                IPEndPoint EP = new IPEndPoint(IPAddress.Parse(IP), Port);
-                T = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                T.Connect(EP);
-                Th = new Thread(Listen);
-                Th.IsBackground = true;
-                Th.Start();
-                textBox4.Text = "已經連上伺服器\r\n";
-                Send("0" + User);
-                button1.Enabled = false;
-                button2.Enabled = true;
+                try
+                {
+                    IPEndPoint EP = new IPEndPoint(IPAddress.Parse(IP), Port);
+                    T = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    T.Connect(EP);
+                    Th = new Thread(Listen);
+                    Th.IsBackground = true;
+                    Th.Start();
+                    textBox4.Text = "已經連上伺服器\r\n";
+                    Send("0" + User);
+                    button1.Text = "登出伺服器";
+                    button2.Enabled = true;
+
+                }
+                catch (Exception)
+                {
+                    textBox4.Text = "無法連上伺服器\r\n";
+                }
             }
-            catch (Exception)
+            else if (button1.Text == "登出伺服器")
             {
-                textBox4.Text = "無法連上伺服器\r\n";
+                isListen = false;
+                Send("9" + User);
+                stopConnect();
+                textBox4.Text += "已經離開\r\n";
             }
+        }
+        
+        private void stopConnect()
+        {
+            T.Close();
+            listBox1.Items.Clear();
+            button1.Text = "登入伺服器";
+            Th.Abort();
         }
 
         private void Send(string Str)
@@ -57,7 +82,7 @@ namespace TCP_Client
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (button1.Enabled == false)
+            if (button1.Text == "登出伺服器")
             {
                 Send("9" + User);
                 T.Close();
@@ -92,7 +117,8 @@ namespace TCP_Client
             string Msg;
             string St;
             string Str;
-            while (true)
+            isListen = true;
+            while (isListen)
             {
                 try
                 {
@@ -100,11 +126,11 @@ namespace TCP_Client
                 }
                 catch (Exception)
                 {
-                    T.Close();
-                    listBox1.Items.Clear();
-                    MessageBox.Show("伺服器斷了！");
-                    button1.Enabled = true;
-                    Th.Abort();
+                    if (isListen)
+                    {
+                        MessageBox.Show("伺服器斷了！");
+                        stopConnect();
+                    }
                 }
 
                 Msg = Encoding.Default.GetString(B, 0, inLen);
@@ -115,7 +141,7 @@ namespace TCP_Client
                     case "L":
                         listBox1.Items.Clear();
                         string[] M = Str.Split(',');
-                        foreach(var m in M)
+                        foreach (var m in M)
                         {
                             listBox1.Items.Add(m);
                         }
@@ -131,6 +157,15 @@ namespace TCP_Client
                         textBox4.ScrollToCaret();
                         break;
                 }
+            }
+        }
+
+        private void TextBox5_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button2.PerformClick();
+                e.SuppressKeyPress = true;
             }
         }
     }
