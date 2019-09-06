@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCP_Server", "TCP_Server\TC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCP_Client", "TCP_Client\TCP_Client.csproj", "{BD51008F-918B-4887-8AB6-2DEE6B7E5902}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCP_Gobang", "TCP_Gobang\TCP_Gobang.csproj", "{F3FA0086-7CE9-4ED4-9D4E-BB34B6F38E7D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{BD51008F-918B-4887-8AB6-2DEE6B7E5902}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD51008F-918B-4887-8AB6-2DEE6B7E5902}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD51008F-918B-4887-8AB6-2DEE6B7E5902}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3FA0086-7CE9-4ED4-9D4E-BB34B6F38E7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3FA0086-7CE9-4ED4-9D4E-BB34B6F38E7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3FA0086-7CE9-4ED4-9D4E-BB34B6F38E7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3FA0086-7CE9-4ED4-9D4E-BB34B6F38E7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
