@@ -86,10 +86,10 @@ namespace TCP_Gobang
                         n += 1;
                         if (n == 5) return true;
                     }
-                }
-                else
-                {
-                    n = 0;
+                    else
+                    {
+                        n = 0;
+                    }
                 }
             }
             //垂直
@@ -104,10 +104,10 @@ namespace TCP_Gobang
                         n += 1;
                         if (n == 5) return true;
                     }
-                }
-                else
-                {
-                    n = 0;
+                    else
+                    {
+                        n = 0;
+                    }
                 }
             }
             //左上右下
@@ -123,10 +123,10 @@ namespace TCP_Gobang
                         n += 1;
                         if (n == 5) return true;
                     }
-                }
-                else
-                {
-                    n = 0;
+                    else
+                    {
+                        n = 0;
+                    }
                 }
             }
             //右上左下
@@ -142,10 +142,10 @@ namespace TCP_Gobang
                         n += 1;
                         if (n == 5) return true;
                     }
-                }
-                else
-                {
-                    n = 0;
+                    else
+                    {
+                        n = 0;
+                    }
                 }
             }
             return false;
@@ -154,28 +154,54 @@ namespace TCP_Gobang
         Socket T;
         Thread Th;
         string User;
+        bool isListen;
         private void Button1_Click(object sender, EventArgs e)
         {
+            if (textBox3.Text == "")
+            {
+                textBox4.Text = "請輸入您的名字！";
+                return;
+            }
             Control.CheckForIllegalCrossThreadCalls = false;
             User = textBox3.Text;
             string IP = textBox1.Text;
             int Port = int.Parse(textBox2.Text);
-            try
+            if (button1.Text == "登入伺服器")
             {
-                IPEndPoint EP = new IPEndPoint(IPAddress.Parse(IP), Port);
-                T = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                T.Connect(EP);
-                Th = new Thread(Listen);
-                Th.IsBackground = true;
-                Th.Start();
-                textBox4.Text = "已連接伺服器\r\n";
-                Send("0" + User);
-                button1.Enabled = false;
+                try
+                {
+                    IPEndPoint EP = new IPEndPoint(IPAddress.Parse(IP), Port);
+                    T = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    T.Connect(EP);
+                    Th = new Thread(Listen);
+                    Th.IsBackground = true;
+                    Th.Start();
+                    textBox4.Text = "已連接伺服器\r\n";
+                    textBox3.Enabled = false;
+                    Send("0" + User);
+                    button1.Text = "登出伺服器";
+                }
+                catch (Exception)
+                {
+                    textBox4.Text = "無法連上伺服器\r\n";
+                }
             }
-            catch
+            else if (button1.Text == "登出伺服器")
             {
-                textBox4.Text = "無法連上伺服器\r\n";
+                textBox3.Enabled = true;
+                isListen = false;
+                Send("9" + User);
+                stopConnect();
+                textBox4.Text = "已經離開\r\n";
             }
+        }
+
+        private void stopConnect()
+        {
+            T.Close();
+            listBox1.Items.Clear();
+            button1.Text = "登入伺服器";
+            Th.Abort();
         }
 
         private void Send(string Str)
@@ -186,7 +212,7 @@ namespace TCP_Gobang
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (button1.Enabled == false)
+            if (button1.Text == "登出伺服器")
             {
                 Send("9" + User);
                 T.Close();
@@ -201,7 +227,8 @@ namespace TCP_Gobang
             string Msg;
             string St;
             string Str;
-            while (true)
+            isListen = true;
+            while (isListen)
             {
                 try
                 {
@@ -209,11 +236,8 @@ namespace TCP_Gobang
                 }
                 catch (Exception)
                 {
-                    T.Close();
-                    listBox1.Items.Clear();
+                    stopConnect();
                     MessageBox.Show("伺服器斷了！");
-                    button1.Enabled = true;
-                    Th.Abort();
                 }
                 Msg = Encoding.Default.GetString(B, 0, inLen);
                 St = Msg.Substring(0, 1);
@@ -223,10 +247,7 @@ namespace TCP_Gobang
                     case "L":
                         listBox1.Items.Clear();
                         string[] M = Str.Split(',');
-                        for(int i = 0; i < M.Length; i++)
-                        {
-                            listBox1.Items.Add(M[i]);
-                        }
+                        listBox1.Items.AddRange(M);
                         break;
                     case "5":
                         CVS.Shapes.Clear();
