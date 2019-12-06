@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCP_Gobang", "TCP_Gobang\TC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCP_Tennis", "TCP_Tennis\TCP_Tennis.csproj", "{CF09165D-E2E6-4954-9572-502C72DAE4D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCP_ShootGame", "TCP_ShootGame\TCP_ShootGame.csproj", "{EBEF3A95-3C42-403C-8DC8-FD3C4E222913}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{CF09165D-E2E6-4954-9572-502C72DAE4D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF09165D-E2E6-4954-9572-502C72DAE4D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF09165D-E2E6-4954-9572-502C72DAE4D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBEF3A95-3C42-403C-8DC8-FD3C4E222913}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBEF3A95-3C42-403C-8DC8-FD3C4E222913}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBEF3A95-3C42-403C-8DC8-FD3C4E222913}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBEF3A95-3C42-403C-8DC8-FD3C4E222913}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
