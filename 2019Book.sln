@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCP_Tennis", "TCP_Tennis\TC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCP_ShootGame", "TCP_ShootGame\TCP_ShootGame.csproj", "{EBEF3A95-3C42-403C-8DC8-FD3C4E222913}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Http_WebMSN", "Http_WebMSN\Http_WebMSN.csproj", "{00F4789B-9305-4526-817D-45C7AEEFF913}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{EBEF3A95-3C42-403C-8DC8-FD3C4E222913}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBEF3A95-3C42-403C-8DC8-FD3C4E222913}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBEF3A95-3C42-403C-8DC8-FD3C4E222913}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00F4789B-9305-4526-817D-45C7AEEFF913}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00F4789B-9305-4526-817D-45C7AEEFF913}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00F4789B-9305-4526-817D-45C7AEEFF913}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00F4789B-9305-4526-817D-45C7AEEFF913}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
